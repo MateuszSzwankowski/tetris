@@ -8,6 +8,7 @@ class Brick:
     def __init__(self, board, brick_type):
         self.board = board
 
+        self.type = brick_type['type']
         self.color = brick_type['color']
         self.coords = brick_type['init_pos'].copy()
 
@@ -38,7 +39,7 @@ class Brick:
             self._move_to(new_coords)
 
     def rotate(self):
-        if self.color == 'yellow':  # square does not rotate
+        if self.type == 'O':  # square does not rotate
             return
 
         pivot = self.coords[0].copy()

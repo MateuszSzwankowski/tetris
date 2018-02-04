@@ -63,13 +63,12 @@ class Board(tk.Frame):
         next_brick = self.brick_queue[-1]
         self.app.next_brick_in_queue.set(next_brick['type'])
 
-        full_rows = self._find_full_rows()
-        if full_rows:
-            self.app.update_score(len(full_rows))
-            self._remove_full_rows(full_rows)
+        full_lines = self._find_full_lines()
+        if full_lines:
+            self.app.update_score(lines_cleared=len(full_lines))
+            self._remove_full_lines(full_lines)
 
         if self.is_collision(self.active_brick.coords):
-            print('Game over')
             self.active = False
             self.app.game_over()
         else:
@@ -94,15 +93,15 @@ class Board(tk.Frame):
         elif command == 'space':
             self._hard_drop()
 
-    def _find_full_rows(self):
-        full_rows = []
+    def _find_full_lines(self):
+        full_lines = []
         for i, row in enumerate(self.tiles):
             if (set(row) & self.bricks) == set(row):
-                full_rows.append(i)
-        return full_rows
+                full_lines.append(i)
+        return full_lines
 
-    def _remove_full_rows(self, full_rows):
-        for line in sorted(full_rows):
+    def _remove_full_lines(self, full_lines):
+        for line in sorted(full_lines):
             self.bricks -= set(self.tiles[line])
             for row in range(line, 1, -1):
                 for i, tile in enumerate(self.tiles[row]):
