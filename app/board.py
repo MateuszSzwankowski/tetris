@@ -2,8 +2,8 @@ import tkinter as tk
 import numpy as np
 import random
 
-from tile import Tile
-from brick import Brick
+from .tile import Tile
+from .brick import Brick
 
 
 class Board(tk.Frame):
